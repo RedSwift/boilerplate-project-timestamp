@@ -19,15 +19,29 @@ app.get("/", function (req, res) {
 });
 
 
-// your first API endpoint... 
+const formatDateToResponse = (date) => {
+  const parsedDate = new Date(date)
+
+  return {
+    utc: parsedDate.toUTCString(),
+    unix: parsedDate.getTime()
+  }
+}
+
+const formatUnixToResponse = (date) => {
+  const timestamp = parseInt(date)
+  return {
+    utc: new Date(timestamp).toUTCString(),
+    unix: timestamp
+  }
+}
+
 app.get('/api/:date', (req, res) => {
-  const parsedDate = new Date(req.params.date)
-  const utcString = parsedDate.toUTCString()
-  const unixString = parsedDate.getTime() 
-  res.json({
-    utc: utcString,
-    unix: unixString
-  })
+  if (+req.params.date) {
+    res.json(formatUnixToResponse(req.params.date))
+  }
+
+  res.json(formatDateToResponse(req.params.date))
 })
 
 // listen for requests :)

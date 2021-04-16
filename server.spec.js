@@ -11,5 +11,13 @@ test('valid date should return unix and utc timestamp in milliseconds', (done) =
       unix: 1451001600000, 
       utc: "Fri, 25 Dec 2015 00:00:00 GMT"
     }, done)
-  
+})
+
+test('utc timestamp should return unix timestamp and utc string accordingly', (done) => {
+  supertest(app)
+    .get('/api/1451001600000')
+    .expect(200, {
+      unix: 1451001600000,
+      utc: "Fri, 25 Dec 2015 00:00:00 GMT"
+    }, done)
 })
