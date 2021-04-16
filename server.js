@@ -41,6 +41,10 @@ app.get('/api/:date', (req, res) => {
     res.json(formatUnixToResponse(req.params.date))
   }
 
+  if (!new Date(req.params.date).getTime()) {
+    res.status(400).json({error: 'Invalid Date'})
+  }
+
   res.json(formatDateToResponse(req.params.date))
 })
 

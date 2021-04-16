@@ -21,3 +21,11 @@ test('utc timestamp should return unix timestamp and utc string accordingly', (d
       utc: "Fri, 25 Dec 2015 00:00:00 GMT"
     }, done)
 })
+
+test('can handle all parsable date strings', (done) => {
+  supertest(app)
+    .get('/api/Fri, 25 Dec 2015T00:00:00')
+    .expect(400, {
+      error: 'Invalid Date'
+    }, done)
+})
