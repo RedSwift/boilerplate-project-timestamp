@@ -29,3 +29,13 @@ test('can handle all parsable date strings', (done) => {
       error: 'Invalid Date'
     }, done)
 })
+
+test('An empty date parameter should return the current time in a JSON object with a unix key and utc key', (done) => {
+  supertest(app)
+    .get('/api/')
+    .expect(200, {
+      utc: new Date().toUTCString(),
+      // failing test due to timestamp difference in milliseconds
+      unix: new Date().getTime()
+    }, done)
+})
