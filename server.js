@@ -38,14 +38,14 @@ const formatUnixToResponse = (date) => {
 
 app.get('/api/:date', (req, res) => {
   if (+req.params.date) {
-    res.json(formatUnixToResponse(req.params.date))
+    return res.json(formatUnixToResponse(req.params.date))
   }
 
   if (!new Date(req.params.date).getTime()) {
-    res.status(400).json({error: 'Invalid Date'})
+    return res.status(200).send({error: "Invalid Date"})
   }
 
-  res.json(formatDateToResponse(req.params.date))
+  return res.json(formatDateToResponse(req.params.date))
 })
 
 app.get('/api', (req, res) => {
